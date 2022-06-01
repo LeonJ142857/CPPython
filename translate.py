@@ -15,7 +15,7 @@ class Translate:
 
     def write_print(self, out, print_args):
         # for print statements
-        out.write("cout << " + print_args + "<< endl;")
+        out.write("cout << " + print_args + " << endl;")
 
     def write_var_assignment(self, out, var_type, var_name, var_value):
         out.write(var_type + " " + var_name + " = " + var_value + ";")
@@ -66,16 +66,16 @@ class Translate:
         out.close()
 
 def main():
-    with open("test.py") as data:
+    with open("test_translate.py") as data:
         program = data.read()
 
-    lexer = lex.Lexer("test.py", program)
+    lexer = lex.Lexer("test_translate.py", program)
     tokens = lexer.generate_tokens()
     
-    parser = yacc.Parser("test.py", tokens, program)
+    parser = yacc.Parser("test_translate.py", tokens, program)
     ast = parser.parse()
 
-    trans = Translate(ast, "test.py")
+    trans = Translate(ast, "test_translate.py")
     out = trans.compile()
 
 main() 
