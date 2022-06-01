@@ -13,16 +13,11 @@ RES = ['print', 'for', 'while', 'if', 'else', 'False', 'True', 'not', 'or', 'and
 # # ---? still can be improved
 # Error class, has line number, position, type, and message
 class Error:
-<<<<<<< HEAD
-    def __init__(self, e_type, e_message, e_position):
-=======
     def __init__(self, e_line, e_pos, e_type, e_message):
         self.e_line = e_line
         self.e_pos = e_pos
->>>>>>> 056c930fb1a24eb7d1445c80e80ded3c04a80d22
-        self.e_type = e_type 
+        self.e_type = e_type
         self.e_message = e_message 
-        self.e_position = e_position
 
     def __repr__(self):
         return f"Error({self.e_type, self.e_message}) at line {self.e_line} position {self.e_pos}"
@@ -169,7 +164,6 @@ class Lexer:
         return tokens
 
 
-<<<<<<< HEAD
 with open("test.py") as data:
     program = data.read()
 
@@ -177,7 +171,6 @@ lexer = Lexer("test.py", program)
 tokens = lexer.generate_tokens()
 
 print(tokens)
-=======
 # with open("test_lexer.py") as data:
 #     program = data.read()
 
@@ -185,4 +178,3 @@ print(tokens)
 # tokens = lexer.generate_tokens()
 
 # print(tokens)
->>>>>>> 056c930fb1a24eb7d1445c80e80ded3c04a80d22
