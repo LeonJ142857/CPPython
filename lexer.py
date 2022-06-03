@@ -188,10 +188,10 @@ class Lexer:
 # tokens = lexer.generate_tokens()
 #
 # print(tokens)
-with open("test_lexer.py") as data:
-    program = data.read()
-
-lexer = Lexer("test_lexer.py", program)
-tokens = lexer.generate_tokens()
-
-print(tokens)
+# with open("test_lexer.py") as data:
+#     program = data.read()
+#
+# lexer = Lexer("test_lexer.py", program)
+# tokens = lexer.generate_tokens()
+#
+# print(tokens)
