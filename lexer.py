@@ -4,7 +4,7 @@ import string
 # clear -> confusion is cleared
 # --- -> do not change, already tested and code is working properly
 # Token Classes
-OP = ['+', '-', '*', '/', '**', '<', '>']
+OP = ['+', '-', '*', '/', '%', '<', '>']
 DEL = ['(', ')', '[', ']', ':', ';']
 RES = ['print', 'for', 'while', 'if', 'else', 'False', 'True', 'not', 'or', 'and'
        'except', 'break', 'def', 'lambda', 'class']
@@ -33,7 +33,8 @@ class Token:
 
     # return type only if there is no value
     def __repr__(self):
-        return f"Token({self.t_type}, {self.t_value})" if {self.t_value} is not None else f"Token({self.t_type})"
+        return f"({self.t_type}, {self.t_value})" if {self.t_value} is not None else f"Token({self.t_type})"
+
 
 class Lexer:
     # ---
@@ -58,6 +59,8 @@ class Lexer:
             self.data[self.pos] if self.pos < len(self.data) else None
         )
 
+    def lookahead(self):
+        return self.data[self.pos+1] if self.pos+1 < len(self.data) else None
     # ---
     # main function to generate the tokens
     def generate_tokens(self):
@@ -67,9 +70,23 @@ class Lexer:
 
         # ---
         while self.current is not None:
+            # check for exponent token
+            # if self.current == "*":
+            #     op = "*"
+            #     self.next()
+            #     if self.current == "*":
+            #         op += "*"
+            #         tokens.append(Token("OPERATOR", self.current, self.pos))
+            #         continue
             # ---
             # check for operator token
             if self.current in OP:
+                if self.current == "*":
+                    if self.lookahead() == "*":
+                        tokens.append(Token("OPERATOR", "**", self.pos))
+                        self.next()
+                        self.next()
+                        continue
                 tokens.append(Token("OPERATOR", self.current, self.pos))
             # ---
             # check for assignment token
@@ -164,17 +181,17 @@ class Lexer:
         return tokens
 
 
-with open("test.py") as data:
+# with open("test.py") as data:
+#     program = data.read()
+#
+# lexer = Lexer("test.py", program)
+# tokens = lexer.generate_tokens()
+#
+# print(tokens)
+with open("test_lexer.py") as data:
     program = data.read()
 
-lexer = Lexer("test.py", program)
+lexer = Lexer("test_lexer.py", program)
 tokens = lexer.generate_tokens()
 
 print(tokens)
-# with open("test_lexer.py") as data:
-#     program = data.read()
-
-# lexer = Lexer("test_lexer.py", program)
-# tokens = lexer.generate_tokens()
-
-# print(tokens)
